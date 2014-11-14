@@ -1,3 +1,4 @@
+import Data.Char
 
 repli :: Int -> a -> [a]
 repli n a = [a | _ <- [1 .. n]]
@@ -16,8 +17,43 @@ perfects :: Int -> [Int]
 perfects n = [x | x <- [1..n], isPerfect x]
     where isPerfect num = sum( init (factors num)) == num
 
-ex4 :: Int -> [(Int,Int)]
-ex4 = [(x,y) | x <- [1,2,3], y <- [4,5,6]]
+--ex4 :: Int -> [(Int,Int)]
+--ex4 = [(x,y) | x <- [1,2,3], y <- [4,5,6]]
 
 find :: (Eq a) => a -> [(a,b)] -> [b]
-find k t = [v | (k`, v) <- t, k == k`]
+find k t = [v | (l, v) <- t, k == l]
+
+positions :: (Eq a) => a -> [a] -> [Int]
+positions x xs = find x (zip xs [0..n])
+    where n = length xs - 1
+
+scalarproduct :: [ Int ] -> [ Int ] -> Int
+scalarproduct xs ys = sum [ x * y | (x,y) <- xs `zip` ys]
+
+
+
+let2int :: Char -> Int
+let2int c = ord c - ord 'a'
+
+int2let :: Int -> Char
+int2let n = chr( ord 'a' + n )
+
+shift :: Int -> Char -> Char
+shift n c
+    | isLower c = int2let (( let2int c + n ) `mod` 26)
+    | otherwise = c
+encode :: Int -> String -> String
+encode n xs = [shift n x | x <- xs]
+
+riffle :: [a] -> [a] -> [a]
+riffle xs ys = concat [[x,y] | (x,y) <- xs `zip` ys]
+
+divides :: Int -> Int -> Bool
+divides x y = x `mod` y == 0 
+
+divisors :: Int -> [Int]
+divisors x = [d | d <- [1..x], x `divides` d]
+
+
+
+
