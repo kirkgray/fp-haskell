@@ -91,9 +91,9 @@ myrepl :: Int -> a -> [a]
 myrepl 0 _ = []
 myrepl n x = x : myrepl ( n - 1 ) x
 
---(*&) :: [a] -> Int -> a
---(x : _ ) *& 0 = [x]
---( _ : xs ) *& n = xs *& ( n - 1 )
+(*&) :: [a] -> Int -> a
+(x : _ ) *& 0 = x
+( _ : xs ) *& n = xs *& ( n - 1 )
 
 myelem :: Eq a => a -> [a] -> Bool
 myelem _ [] = False
